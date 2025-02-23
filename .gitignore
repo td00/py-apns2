@@ -1,0 +1,4 @@
+config.ini
+device_tokens.db
+instance/*
+*.p8

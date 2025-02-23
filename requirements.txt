@@ -1,0 +1,6 @@
+flask
+flask_sqlalchemy
+asyncio
+aiohttp
+apns2
+configparser

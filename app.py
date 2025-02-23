@@ -143,6 +143,42 @@ def delete_all_device_tokens():
     except Exception as e:
         return jsonify({'error': 'Interner Serverfehler', 'details': str(e)}), 500
 
+@app.route("/api/customnotify", methods=["POST"])
+def custom_notify():
+    if not authenticate(request, MANAGE_AUTH):
+        return jsonify({"error": "Unauthorized"}), 401
+
+    try:
+        data = request.get_json()
+        severity = data.get("severity")
+        notification_text = data.get("notification")
+
+        if not severity or not notification_text:
+            return jsonify({"error": "severity und notification sind erforderlich"}), 400
+
+        severity_icons = {
+            "info": "",
+            "warning": "⚠️ ",
+            "urgent": "❗️ ",
+            "danger": "❌ "
+        }
+
+        if severity not in severity_icons:
+            return jsonify({"error": "Ungültige severity"}), 400
+
+        title = f"{severity_icons[severity]}{notification_text}"
+        subtitle = "ignore"
+        text = "ignore"
+
+        device_tokens = DeviceToken.query.all()
+        for token in device_tokens:
+            send_notification(token.device_token, title, subtitle, text)
+
+        return jsonify({"message": "Benachrichtigungen gesendet"}), 200
+    except Exception as e:
+        return jsonify({'error': 'Interner Serverfehler', 'details': str(e)}), 500
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

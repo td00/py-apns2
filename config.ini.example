@@ -1,0 +1,15 @@
+[AUTH]
+REGISTER_AUTH=dein_register_auth_token
+MANAGE_AUTH=dein_manage_auth_token
+
+[DATABASE]
+SQLALCHEMY_DATABASE_URI=sqlite:///device_tokens.db
+
+[APNS]
+auth_key_path=./APNSAuthKey.p8
+auth_key_id=dein_auth_key_id
+team_id=dein_team_id
+topic=dein_topic
+
+[API]
+resultsapi=https://sat-api.tservic.es/api/v1/results

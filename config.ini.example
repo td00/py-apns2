@@ -12,4 +12,4 @@ team_id=dein_team_id
 topic=dein_topic
 
 [API]
-resultsapi=https://sat-api.tservic.es/api/v1/results
+resultsapi=https://foobar.regattatech.de/api/v1/results
